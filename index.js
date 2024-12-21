@@ -294,7 +294,7 @@ function reveal() {
   }
 
   var ifrm = document.createElement("iframe");
-  ifrm.setAttribute("src", "https://videos.pexels.com/video-files/3831835/3831835-sd_960_506_25fps.mp4");
+  ifrm.setAttribute("src", "https://www.youtube.com/embed/5u4xTa3LR2U?controls=0&loop=1&autoplay=1");
   //ifrm.style.width = `${w}px`;
   //ifrm.style.height = `${h}px`;
   ifrm.style.border = 'none';
