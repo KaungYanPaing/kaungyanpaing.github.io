@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaung Yan Paing - Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'bg-dark': '#000000',
+                        'text-light': '#ffffff',
+                        'primary-cyan': '#00bcd4', // Original primary color
+                        'accent-green': '#4caf50',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+                        'logo': ['"Press Start 2P"', 'cursive'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --bg-color: #000000;
+            --text-color: #ffffff;
+            --primary-color: #00bcd4; 
+            --secondary-color: #00bcd4; 
+            --link-color: #4caf50; 
+            --font-family: 'Inter', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body {
+            font-family: var(--font-family);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            scroll-behavior: smooth;
+            
+            /* --- BACKGROUND STYLES --- */
+            background-image: url('https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg'); 
+            /*https://images.pexels.com/photos/360912/pexels-photo-360912.jpeg
+			https://images.pexels.com/photos/3013999/pexels-photo-3013999.jpeg
+            */
+            background-color: #000000; /* Fallback color */
+            background-size: cover;
+            background-attachment: fixed; /* Keeps the background static while content scrolls */
+            background-position: center center;
+            position: relative; /* Required for the ::before overlay */
+            z-index: 1; /* Ensures content sits above the overlay */
+            /* --- END NEW BACKGROUND STYLES --- */
+        }
+        
+        /* --- NEW BLACK OPACITY OVERLAY (The 'black opposite layer') --- */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Black with 70% opacity */
+            z-index: -1; /* Positions the overlay behind all content */
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px 24px;
+        }
+
+        /* Utility classes for page management */
+        .page {
+            display: none;
+            min-height: calc(100vh - 80px);
+        }
+        .page.active {
+            display: block;
+        }
+
+        /* --- HEADER SECTION (Uses solid background to ensure readability over scrolling content) --- */
+        header {
+            padding: 0;
+            border-bottom: none;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background-color: var(--bg-color); 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); 
+        }
+
+        /* Inner container for header content, controlling alignment and spacing */
+        .header-content {
+            display: flex;
+            justify-content: space-between; /* Name left, Nav right */
+            align-items: center;
+            padding: 15px 24px; /* Apply padding here instead of 'header' */
+            max-width: 1400px; /* Match container max-width */
+            margin: 0 auto;
+        }
+
+        /* Navigation Menu Styling */
+        .navbar-menu {
+            display: flex;
+            justify-content: flex-end; /* Align links to the right */
+            gap: 20px;
+            margin-top: 0; /* Removed unnecessary margin */
+        }
+
+        .nav-link {
+            cursor: pointer;
+            padding: 8px 15px;
+            color: #ccc;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: color 0.3s, background-color 0.3s, border-bottom 0.3s;
+            border-bottom: 2px solid transparent;
+            border-radius: 4px 4px 0 0;
+        }
+
+        .nav-link:hover, .nav-link.active-nav {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+        }
+        
+        /* --- Logo Styling (Replaces typing text) --- */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            font-size: 1.8em; 
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(0, 188, 212, 0.5);
+            font-weight: bold;
+        }
+        
+        /* New custom font class for the logo text */
+        .logo-font {
+            font-family: 'Press Start 2P', cursive; /* Updated to new font */
+            font-weight: 400; 
+            font-size: 0.7em; /* Reduced size slightly because Press Start 2P is blocky */
+            letter-spacing: 2px; /* Adjusted spacing for the pixelated look */
+        }
+
+        /* --- Global Section Styling (Used for Resume Page) --- */
+        .section {
+            padding: 30px 0;
+            border-bottom: 1px solid #333;
+        }
+        .section h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+            border-left: 4px solid var(--secondary-color);
+            padding-left: 10px;
+            text-transform: uppercase;
+        }
+        .summary p {
+            font-size: 1.1em;
+            text-align: justify;
+        }
+
+        /* --- Experience/Job Styling (Retained from original) --- */
+        .job {
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-left: 3px solid #444;
+            padding-left: 15px;
+        }
+        .job-title {
+            font-size: 1.25em;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        .job-company {
+            font-style: italic;
+            color: #aaa;
+            margin-bottom: 5px;
+        }
+        .job-dates {
+            font-size: 0.9em;
+            color: #888;
+            margin-bottom: 10px;
+        }
+        .job ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 10px;
+        }
+        .job li {
+            position: relative;
+            padding-left: 1.2em;
+            margin-bottom: 8px;
+            color: #eee;
+        }
+        .job li::before {
+            content: "▪";
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        /* --- Certifications Styling (Retained from original) --- */
+        .certifications-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        
+        .certifications-list li {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 0; 
+            border-left: 5px solid var(--primary-color);
+            border-radius: 4px;
+            margin: 0;
+            position: relative; 
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .cert-link-box {
+            display: block;
+            width: 100%;
+            height: 100%;
+            padding: 15px;
+            text-decoration: none; 
+            color: var(--text-color);
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .certifications-list li:hover {
+            background-color: rgba(0, 188, 212, 0.2); 
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0, 188, 212, 0.5); 
+        }
+        .certifications-list li:hover .cert-link-box {
+            color: var(--text-color);
+        }
+
+
+        /* --- CTF Styling (Retained from original) --- */
+        .ctf-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px dashed #333;
+            border-radius: 4px;
+        }
+        .ctf-item strong {
+            display: block;
+            color: var(--primary-color);
+            font-size: 1.1em;
+            margin-bottom: 3px;
+        }
+        .ctf-item span {
+            color: #aaa;
+            font-size: 0.9em;
+        }
+        .ctf-item a {
+            color: var(--secondary-color);
+            margin-left: 10px;
+            text-decoration: none;
+        }
+        /* --- Footer Styling --- */
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 30px;
+            border-top: 1px solid #333;
+            color: #666;
+            font-size: 0.9em;
+        }
+        footer span {
+            color: var(--primary-color);
+        }
+
+        /* --- MOBILE MENU STYLES (from previous request, retained) --- */
+        /* Hide the toggle button by default on desktop */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 5px;
+        }
+        
+        /* Mobile Adjustments (Screen <= 600px) */
+        @media (max-width: 600px) {
+            .header-content {
+                /* Changed to row for logo and button on the same line */
+                padding: 15px 16px; 
+                flex-direction: row; 
+            }
+            .logo-container {
+                margin-bottom: 0;
+            }
+            
+            /* Show the toggle button */
+            .menu-toggle {
+                display: block;
+            }
+
+            /* Stack the menu items vertically and hide by default */
+            .navbar-menu {
+                display: none; /* Hidden by default on mobile */
+                position: absolute;
+                top: 60px; /* Position below the header */
+                left: 0;
+                right: 0;
+                background-color: rgba(0, 0, 0, 0.95); /* Semi-transparent dark background */
+                flex-direction: column;
+                padding: 10px 0;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+                border-top: 1px solid #333;
+                z-index: 9; /* Ensure it is below sticky header but above page content */
+            }
+            
+            /* Show the menu when the 'open' class is applied */
+            .navbar-menu.open {
+                display: flex;
+            }
+
+            .nav-link {
+                padding: 12px 24px; /* Larger hit area */
+                width: 100%;
+                text-align: center;
+                border-radius: 0;
+                border-bottom: none; 
+            }
+            
+            /* Style active/hover state inside the dropdown */
+            .nav-link:hover, .nav-link.active-nav {
+                color: var(--primary-color);
+                background-color: rgba(0, 188, 212, 0.1); 
+                border-left: 3px solid var(--primary-color); /* Add a left border for emphasis */
+                border-bottom: none;
+            }
+            
+            /* Adjust container padding specifically for very small screens */
+            .container {
+                padding: 20px 16px; 
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo-container">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-7 h-7 mr-2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    <path d="M15 9l-3 3-3-3"></path>
+                    <path d="M12 11V7"></path>
+                </svg>
+                <span class="logo-font">H3x</span>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle navigation menu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+            
+            <div class="navbar-menu" id="mobile-menu">
+                <a class="nav-link active-nav" data-page="home">Home</a>
+                <a class="nav-link" data-page="resume">About Me</a>
+                <a class="nav-link" data-page="services">Services</a>
+                <a class="nav-link" data-page="contact">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div id="home" class="page active">
+            <div class="flex flex-col items-center justify-center min-h-[60vh] text-center p-4">
+                <div class="p-8 rounded-xl max-w-2xl w-full">
+                    <h2 class="text-4xl sm:text-5xl font-bold mb-4 text-primary-cyan">
+                        Kaung Yan Paing
+                    </h2>
+                    <p class="text-lg text-gray-300 mb-8">
+                        Hello, I'm Kaung Yan Paing. As a Penetration Tester, I specialize in application and infrastructure security testing, focusing on Web/Mobile applications, APIs, and network penetration. I deliver actionable security insights and contribute actively to public/private bug bounty programs.
+                    </p>
+                    
+                    <button onclick="navigate('resume')" class="bg-primary-cyan hover:bg-opacity-80 text-bg-dark font-extrabold py-3 px-8 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:scale-[1.03] text-lg uppercase tracking-wider">
+                        View Details
+                    </button>
+
+                    <div class="contact-info mt-10">
+                        <a href="mailto:kaungyanpaing1@outlook.com" class="hover:text-primary-cyan transition duration-300">Email</a>
+                        <span class="text-gray-600">|</span>
+                        <a href="https://www.linkedin.com/in/kaungyanpaing" target="_blank" class="hover:text-primary-cyan transition duration-300">LinkedIn</a>
+                        <span class="text-gray-600">|</span>
+                        <a href="https://github.com/KaungYanPaing" target="_blank" class="hover:text-primary-cyan transition duration-300">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="resume" class="page">
+            <div class="px-6 md:px-20"> <section class="section summary">
+                    <h2>Profile Summary</h2>
+                    <p>Cybersecurity Professional with 5+ years of experience specializing in Web/Mobile applications and APIs vulnerability assessment, and network infrastructure penetration testing. I focus on security architecture reviews and delivering actionable remediation guidance to development teams. My methodology combines manual and automated testing to identify critical vulnerabilities. Domain expertise includes Telecom, Banking, and Financial Services. I actively contribute as a part-time Security Researcher in public/private Bug Bounty programs, and am recognized in Bugcrowd's Hall of Fame.</p>
+                </section>
+
+                <section class="section">
+                    <h2>Professional Experiences</h2>
+                    <div class="job">
+                        <div class="job-title">Cyber Security Consultant (Penetration Tester)</div>
+                        <div class="job-company">MPT KSGM Joint Operation, Yangon, Myanmar</div>
+                        <div class="job-dates">March 2024 - May 2025</div>
+                        <ul>
+                            <li>Conducted comprehensive penetration tests on web, mobile applications (Android, iOS), APIs, and corporate networks.</li>
+                            <li>Developed and executed customized Red Team vs Blue Team Internal Cyber Wargame Simulations.</li>
+                            <li>Review PRDs to identify security risks and ensure compliance with best practices.</li>
+                            <li>Analyzed attack vectors and reduced attack surfaces through a structured Vulnerability Management Program.</li>
+                            <li>Work with cross-functional teams to assess, prioritize, and remediate security risks with actionable recommendations.</li>
+                            <li>Lead cybersecurity awareness training and conduct phishing campaigns to promote a culture of security awareness.</li>
+                            <li>Provided detailed technical reports documenting vulnerabilities, risk severity, and remediation strategies.</li>
+                            <li>Leveraging hands-on experience with a range of security  assessment tools, such as  BurpSuite Professional, BurpSuite Enterprise (DAST), Nessus Expert/Professional,  Fortify WebInspect, Frida, Objection, MobSF, JADX Reversing tool, Nmap, and Metasploit.</li>
+                        </ul>
+                    </div>
+
+                    <div class="job">
+                        <div class="job-title">Cyber Security Analyst (Vulnerability Assessment & Penetration Testing)</div>
+                        <div class="job-company">Kernellix Cyber Defense and Response Center, Yangon, Myanmar</div>
+                        <div class="job-dates">October 2022 - February 2024</div>
+                        <ul>
+                            <li>Managed and executed extensive application and infrastructure penetration testing, including secure code reviews.</li>
+                            <li>Specialized in enterprise-level Application Security Testing (Internet-Banking, Mobile Banking, Core-Banking and Management Systems).</li>
+                            <li>Proficiently utilized OWASP Web and Mobile Application Security, MITRE ATT&CK, and NIST Cyber Security Framework.</li>
+                            <li>Assisting in security research and contributing to the development of security tools and methodologies.</li>
+                            <li>Scope internal and external penetration tests and engage clients to ensure assessments are effective and relevance of the assessments.</li>
+                            <li>Leveraging hands-on experience with a range of security  assessment tools, such as  Burp Suite Professional, Acunetix Scanner, Sonar Qube, Nessus Professional, OpenVAS, Frida, Objection, MobSF, Nmap, and Metasploit.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="job">
+                        <div class="job-title">Network Security Engineer</div>
+                        <div class="job-company">Global World Insurance Company, Yangon, Myanmar</div>
+                        <div class="job-dates">February 2020 - September 2022</div>
+                        <ul>
+                            <li>Administered Windows/Linux Servers, Vmware ESXi, and vCenter.</li>
+                            <li>Implemented a wireless network to provide secure and reliable wireless access to users.</li>
+                            <li>Installed, configured, and maintained network firewalls(Fortigate, Palo alto), Cisco Routers and Layer 3 switches.</li>
+                            <li>Configured open-source network monitoring tool(Zabbix) to monitor IT infrastructure components.</li>
+                            <li>Configure HA Proxy to provide the High Availability, load balancing and proxying for TCP and HTTP based applications.</li>
+                            <li>Leveraging hands-on experience with Zabbix Network Monitoring tool, Veritas Backup tool, Mikrotik WinBox, Kaspersky.</li>
+
+                        </ul>
+                    </div>
+
+                    <div class="job">
+                        <div class="job-title">Applications QA Tester - Internship</div>
+                        <div class="job-company">Rooking Myanmar Company, Yangon, Myanmar</div>
+                        <div class="job-dates">June 2019 – October 2019</div>
+                        <ul>
+                            <li>Reviewed application requirements and provided feedback to ensure that the application meets customer needs.</li>
+                            <li>Debugged application and created bug reports for application development teams.</li>
+                            <li>Analysis of hybrid mobile applications, mitigate risk and prevent application's issues.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2>Education</h2>
+                    <div class="job">
+                        <div class="job-title">Bachelor of Arts - B.A (Myan)</div>
+                        <div class="job-company">Myeik University, Myeik, Myanmar</div>
+                        <div class="job-dates">November 2015 - September 2018</div>
+                    </div>
+
+                    <div class="job">
+                        <div class="job-title">Diploma in Network Engineering (NCFE, UK)</div>
+                        <div class="job-company">Y-Max University, Yangon, Myanmar</div>
+                        <div class="job-dates">September 2018 - June 2019</div>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2>Certifications</h2>
+                    <ul class="certifications-list">
+                        <li title="Click to verify credential">
+                            <a href="https://www.credential.net/07e2b320-bc92-4aa0-9c68-12cd445321d7" target="_blank" class="cert-link-box">
+                                OffSec Certified Professional (OSCP)
+                            </a>
+                        </li>
+                        <li title="Click to verify credential">
+                            <a href="https://certs.ine.com/0126ed05-8c54-4d08-a5d4-9b327e48fcb8" target="_blank" class="cert-link-box">
+                                eLearnSecurity Certified Professional Penetration Tester (eCPPT)
+                            </a>
+                        </li>
+                        <li title="Click to verify credential">
+                            <a href="https://www.credential.net/de332c3d-fd09-48bd-a8bb-9fdbe9aa7392" target="_blank" class="cert-link-box">
+                                Certified Red Team Analyst (CRTA)
+                            </a>
+                        </li>
+                        <li title="Click to verify credential">
+                            <a href="www.credly.com/badges/c7def32f-fd0e-4788-958d-dc16e97a2b3/" target="_blank" class="cert-link-box">
+                                APIsec Certified Practitioner (ACP)
+                            </a>
+                        </li>
+                        <li title="Click to verify credential">
+                            <a href="https://www.credly.com/badges/b5975bdd-a4a7-4811-8794-06c0a2aed87b" target="_blank" class="cert-link-box">
+                                Splunk Core Certified Power User (Splunk)
+                            </a>
+                        </li>
+                        <li title="Click to verify credential">
+                            <a href="https://www.credly.com/badges/2217807e-9f97-45ec-a754-b5f286af7c9f" target="_blank" class="cert-link-box">
+                                Splunk Core Certified User (Splunk)
+                            </a>
+                        </li>
+                        <li title="Click to verify credential">
+                            <a href="https://www.credential.net/715c0755-09b5-44b1-8974-3cb4896427ad" target="_blank" class="cert-link-box">
+                                Certified Network Security Specialist (ICSI)
+                            </a>
+                        </li>
+                        <li title="Click to verify credential">
+                            <a href="https://mikrotik.com/training/certificates/b234864c68839276e7cc" target="_blank" class="cert-link-box">
+                                MikroTik Certified Network Associate (MikroTik)
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="section">
+                    <h2>CTF Tournament Experiences</h2>
+                    <div class="ctf-item">
+                        <strong>2nd Runner Up at Cybergon Capture The Flag 2024</strong> (Local Tournament)
+                        <span>Writeup: <a href="https://github.com/KaungYanPaing/CTF_Writeups/blob/main/CyberGon2024writeups.pdf" target="_blank">View</a></span>
+                    </div>
+                    <div class="ctf-item">
+                        <strong>1st Prize Winner at Cybergon Capture The Flag 2023</strong> (Local Tournament)
+                        <span>Writeup: <a href="https://github.com/KaungYanPaing/CTF_Writeups/blob/main/CyberGon2023writeups.pdf" target="_blank">View</a></span>
+                    </div>
+                    <div class="ctf-item">
+                        <strong>Rank 8th placed at ASEAN Cyber Shield Hacking Contest 2023</strong> (International Tournament)
+                        <span>Organized by KISA (Jakarta, Indonesia)</span>
+                    </div>
+                    <div class="ctf-item">
+                        <strong>Rank 7th at 0xpwn Capture The Flag 2021</strong> (Local Tournament)
+                        <span>Writeup: <a href="https://github.com/KaungYanPaing/CTF_Writeups/blob/main/0xpwnCTF_writeup.pdf" target="_blank">View</a></span>
+                    </div>
+                    <div class="ctf-item">
+                        <strong>Rank 5th placed at Myanmar Cyber Security Challenge 2019</strong> (National Tournament)
+                    </div>
+                    <div class="ctf-item">
+                        <strong>Rank 6th placed at Myanmar Cyber Security Challenge 2018</strong> (National Tournament)
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <div id="services" class="page">
+            <div class="px-6 md:px-10"> <h2 class="text-3xl text-primary-cyan mt-10 mb-6 text-center">My Services</h2>
+                <div class="grid md:grid-cols-2 gap-8 mt-8">
+                    <div class="bg-gray-900 p-6 rounded-lg border-l-4 border-primary-cyan shadow-xl">
+                        <h3 class="text-xl font-semibold text-primary-cyan mb-3">Web Application Penetration Testing</h3>
+                        <p class="text-gray-300">Experienced in security assessments across various web applications, frameworks, and CMS platforms to uncover logic flaws and critical vulnerabilities (OWASP Top 10, etc.).</p>
+                    </div>
+                    <div class="bg-gray-900 p-6 rounded-lg border-l-4 border-primary-cyan shadow-xl">
+                        <h3 class="text-xl font-semibold text-primary-cyan mb-3">Mobile Application Penetration Testing</h3>
+                        <p class="text-gray-300">In-depth security analysis of native (iOS/Android) and hybrid mobile applications, focusing on data storage, communication, and API interaction flaws.</p>
+                    </div>
+
+                    <div class="bg-gray-900 p-6 rounded-lg border-l-4 border-primary-cyan shadow-xl">
+                        <h3 class="text-xl font-semibold text-primary-cyan mb-3">Network Penetration Testing</h3>
+                        <p class="text-gray-300">Internal and external assessments of infrastructure,hosts, firewalls, and network devices to identify configuration errors and exploit potential entry points.</p>
+                    </div>
+
+                    <div class="bg-gray-900 p-6 rounded-lg border-l-4 border-primary-cyan shadow-xl">
+                        <h3 class="text-xl font-semibold text-primary-cyan mb-3">Red Teaming & Simulations</h3>
+                        <p class="text-gray-300">Developing and executing real-world adversarial attack simulations to test the resilience of blue teams, security controls, and incident response processes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="contact" class="page">
+            <h2 class="text-3xl text-primary-cyan mt-10 mb-8 text-center">Get in Touch</h2>
+            <div class="max-w-xl mx-auto p-6 bg-gray-900 rounded-xl shadow-2xl border border-gray-700">
+                <p class="text-gray-300 text-center mb-8">
+                    I'm actively seeking new opportunities and vulnerability assessment & penetration testing projects. Feel free to connect with me directly through these professional channels.
+                </p>
+
+                <div class="space-y-4">
+                    <a href="mailto:kaungyanpaing1@outlook.com" class="flex items-center justify-center p-4 bg-gray-800 rounded-lg text-lg font-medium hover:bg-primary-cyan hover:text-bg-dark transition duration-300 border-l-4 border-primary-cyan">
+                        Email
+                    </a>
+                    <a href="https://www.linkedin.com/in/kaungyanpaing" target="_blank" class="flex items-center justify-center p-4 bg-gray-800 rounded-lg text-lg font-medium hover:bg-primary-cyan hover:text-bg-dark transition duration-300 border-l-4 border-primary-cyan">
+                        LinkedIn
+                    </a>
+                    <a href="https://github.com/KaungYanPaing" target="_blank" class="flex items-center justify-center p-4 bg-gray-800 rounded-lg text-lg font-medium hover:bg-primary-cyan hover:text-bg-dark transition duration-300 border-l-4 border-primary-cyan">
+                        GitHub
+                    </a>
+                    <a href="https://bugcrowd.com/h/H3x_" target="_blank" class="flex items-center justify-center p-4 bg-gray-800 rounded-lg text-lg font-medium hover:bg-primary-cyan hover:text-bg-dark transition duration-300 border-l-4 border-primary-cyan">
+                        BugCrowd
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        Made By Kaung Yan Paing © <span>2025</span> 
+    </footer>
+
+    <script>
+        // --- Page Navigation Logic ---
+        function navigate(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // Show the selected page
+            const selectedPage = document.getElementById(pageId);
+            if (selectedPage) {
+                selectedPage.classList.add('active');
+                window.scrollTo(0, 0); // Scroll to top on page change
+            }
+
+            // Update active state in navigation bar
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active-nav');
+                if (link.getAttribute('data-page') === pageId) {
+                    link.classList.add('active-nav');
+                }
+            });
+
+            // NEW: Close the mobile menu after navigation
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu && mobileMenu.classList.contains('open')) {
+                 mobileMenu.classList.remove('open');
+            }
+        }
+
+        // Attach event listeners to navigation links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                const pageId = e.target.getAttribute('data-page');
+                navigate(pageId);
+            });
+        });
+        
+        // NEW: Mobile Menu Toggle Logic
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (menuToggle && mobileMenu) {
+                menuToggle.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('open');
+                });
+            }
+            
+            // Ensure the home page is active on load
+            navigate('home');
+        });
+    </script>
+</body>
+</html>
